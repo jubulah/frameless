@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Initech Manager Dashboard - by Jubulah Labs</title>
+
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="assets/css/ui-elements.css" rel="stylesheet" />
+
+    <script src="./assets/js/frameless.js"></script>
+    <script>
+        loadComponent("widget_settings", "frameless-widget-settings")
+        loadComponent("widget_links", "frameless-widget-links")
+        loadComponent("widget_foo", "frameless-widget-foo")
+
+    </script>
+
+     <script type="text/javascript">
+
+       let userListBoxVisible = false;
+       function showTestingUsers(displaySetting = "None") {
+         console.log("Toggling user visiblity ...")
+
+         const testingUsersDiv = document.getElementById("testing-users");
+         if (!userListBoxVisible) {
+           testingUsersDiv.style.display = "block";
+         } else {
+           testingUsersDiv.style.display = "none";
+         }
+         userListBoxVisible = !userListBoxVisible;
+       }
+     </script>
+
+  </head>
+  <body>
+
+ 
+ <div id="site-wrapper">
+
+     <!-- Does what it should do visually, but also blocks all the links. -->
+    <!-- img src="./bgs/rock-overlay.png" style="position: absolute;   left: 0px;   top: 0px;   z-index: 0;"/ -->
+
+    <div id="header">
+      <!-- img src="./logos/logo-sm-trans.png" class="logo" style="opacity: 80%;" -->
+      <span style="font-size: 2em; font-weight: bold; font-style: italic; margin: 0 0 0 1%; color: rgba(255, 255, 255, 0.8); vertical-align: middle;">
+        <img src="./assets/img/logo-dark.png" style="max-width: 250px" />
+        Manager Dashboard
+      </span>
+    </div>
+
+    <div id="left-col">
+
+
+    <div id="frameless-widget-links"></div>
+
+    </div> <!-- // End widget-no-share -->
+    </div> <!-- // END Widget -->
+
+    </div>
+
+
+
+    </div>
+
+
+    <div id="right-col">
+
+    <div id="frameless-widget-foo"></div>
+    <div id="frameless-widget-settings"></div>
+
+    </div> <!-- // End Right Col -->
+
+
+  </div>
+  </body>
+  <script src="./assets/js/random-bg.js"></script>
+</html>

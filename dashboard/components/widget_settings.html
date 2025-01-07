@@ -1,0 +1,92 @@
+<script>
+    // Defaults
+    if (localStorage.getItem("settingsRandomBG") === null) {
+        localStorage.setItem("settingsRandomBG", true);
+    }
+    if (localStorage.getItem("settingsScreenShareMode") === null) {
+        localStorage.setItem("settingsScreenShareMode", false);
+    }
+
+    // User Defined Settings
+    let settingsRandomBG = localStorage.getItem("settingsRandomBG") === "true" || false;
+    let settingsScreenShareMode = localStorage.getItem("settingsScreenShareMode") === "true" || false;
+
+    // Function to update the styles based on settings
+    function updateButtonStyles() {
+        // Randomize Background switch
+        const randomBGSwitch = document.getElementById('randomize-bg');
+        randomBGSwitch.checked = settingsRandomBG;
+
+        // Screen Share Mode switch
+        const screenShareSwitch = document.getElementById('screen-share');
+        screenShareSwitch.checked = settingsScreenShareMode;
+    }
+
+    // Update styles based on the initial localStorage settings
+    updateButtonStyles();
+
+    // Event listeners for toggling settings
+    document.getElementById('randomize-bg').addEventListener('change', function() {
+        settingsRandomBG = this.checked;
+        localStorage.setItem("settingsRandomBG", settingsRandomBG);
+        document.getElementById('randomize-bg-label').textContent = this.checked ? 'On' : 'Off';
+    });
+
+    document.getElementById('screen-share').addEventListener('change', function() {
+        settingsScreenShareMode = this.checked;
+        localStorage.setItem("settingsScreenShareMode", settingsScreenShareMode);
+        document.getElementById('screen-share-label').textContent = this.checked ? 'On' : 'Off';
+        hideNoShareContent(settingsScreenShareMode);
+    });
+
+    function hideNoShareContent(isScreenShareMode) {
+        const noShareWidgets = document.querySelectorAll('.widget-no-share-contents');
+        noShareWidgets.forEach(element => {
+
+            // restore point
+            if (!element.hasAttribute('data-original-content')) {
+                element.setAttribute('data-original-content', element.innerHTML);
+            }
+
+            if (isScreenShareMode) {
+                element.textContent = 'Widget disabled when screen sharing active'; // Change content when screen share mode is on
+            } else {
+                element.innerHTML = element.getAttribute('data-original-content');
+            }
+        });
+
+        const noShareTitles = document.querySelectorAll('.widget-no-share-title');
+        noShareTitles.forEach(element => {
+            if (isScreenShareMode) {
+                element.textContent = '-'; // Change content when screen share mode is on
+            } else {
+                // element.textContent = 'original content'; // Restore original content
+            }
+        });
+    }
+
+</script>
+
+<div class="group-wrapper">
+    <h2 class="item-group">Settings</h2>
+    <div class="controls">
+        <p>
+            <strong>Randomize Background:</strong>
+            <label class="switch">
+                <input type="checkbox" id="randomize-bg">
+                <span class="slider"></span>
+            </label>
+            <span class="label-text" id="randomize-bg-label">On</span>
+
+            <br />
+
+            <strong>Screen Share Mode:</strong>
+            <label class="switch">
+                <input type="checkbox" id="screen-share">
+                <span class="slider"></span>
+            </label>
+            <span class="label-text" id="screen-share-label">Off</span>
+        </p>
+    </div>
+</div>
+
